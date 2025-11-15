@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Vibrant Glass Weather App</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Iconify Icons -->
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+  <style>
+    /* Animated Gradient Background */
+    body {
+      background: linear-gradient(135deg, #4f46e5, #06b6d4, #ec4899);
+      background-size: 600% 600%;
+      animation: gradientAnimation 18s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Glassmorphism */
+    .glass {
+      backdrop-filter: blur(16px);
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    #suggestionsList li {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+#suggestionsList li:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center p-4">
+
+  <!-- HEADER -->
+  <div class="glass w-full max-w-4xl rounded-3xl p-6 mt-4 shadow-xl">
+    <h1 class="text-white text-3xl font-bold text-center">
+      🌈 Vibrant Weather Forecast App
+    </h1>
+
+    <!-- SEARCH BAR -->
+    <div class="mt-6 flex gap-3">
+      <input id="cityInput" 
+        type="text" 
+        placeholder="Search city..." 
+        class="flex-1 p-3 rounded-xl glass text-white placeholder-gray-300"
+      />
+      <button id="searchBtn" 
+        class="px-6 py-3 rounded-xl bg-white/20 text-white font-semibold hover:bg-white/30">
+        Search
+      </button>
+      <button id="locationBtn" 
+        class="px-6 py-3 rounded-xl bg-white/20 text-white font-semibold hover:bg-white/30">
+        Use My Location
+      </button>
+      <!-- AUTOCOMPLETE DROPDOWN -->
+<div id="suggestions" class="glass absolute mt-1 w-full max-w-4xl rounded-xl hidden text-white z-50">
+  <ul id="suggestionsList" class="p-2"></ul>
+</div>
+
+    </div>
+
+    <!-- RECENT CITIES DROPDOWN -->
+    <div class="relative mt-4">
+      <button id="recentBtn" 
+        class="px-4 py-2 glass text-white rounded-xl">
+        Recent Cities ▼
+      </button>
+
+      <div id="recentDropdown" 
+        class="absolute left-0 mt-2 w-full glass hidden rounded-xl p-3">
+        <ul id="recentList" class="text-white space-y-2"></ul>
+      </div>
+    </div>
+
+    <!-- ERROR BOX -->
+    <div id="errorBox" class="hidden mt-4 glass p-3 rounded-xl text-red-300 text-center"></div>
+  </div>
+
+  <!-- CURRENT WEATHER SECTION -->
+  <div id="currentWeather" class="glass w-full max-w-4xl mt-6 p-6 rounded-3xl text-white shadow-xl hidden">
+    <div class="flex justify-between items-center">
+
+      <!-- LEFT SIDE -->
+      <div>
+        <h2 id="locationName" class="text-3xl font-bold"></h2>
+        <p id="weatherDesc" class="text-lg opacity-80"></p>
+
+        <!-- TEMP + TOGGLE -->
+        <div class="flex items-center mt-4 gap-3">
+          <span id="temperature" class="text-5xl font-bold"></span>
+          <button id="toggleUnit" class="glass px-3 py-1 rounded-xl text-white">
+            °F
+          </button>
+        </div>
+
+        <p class="mt-3">Humidity: <span id="humidity"></span>%</p>
+        <p>Wind: <span id="wind"></span> km/h</p>
+
+        <!-- EXTREME TEMP ALERT -->
+        <div id="alertBox" class="hidden glass mt-4 p-3 rounded-xl text-yellow-300 font-semibold"></div>
+      </div>
+
+      <!-- ICON -->
+      <span id="weatherIcon" class="iconify text-8xl"></span>
+    </div>
+  </div>
+
+  <!-- FORECAST SECTION -->
+  <h2 class="text-white text-2xl mt-8 font-bold hidden" id="forecastTitle">5-Day Forecast</h2>
+  
+  <div id="forecast" class="grid grid-cols-1 md:grid-cols-5 gap-4 mt-4 w-full max-w-5xl hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
